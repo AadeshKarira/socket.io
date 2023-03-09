@@ -1,6 +1,9 @@
 
 const http = require('http').createServer();
-
+// const http = require('http').createServer((req, res) => {
+//     res.writeHead(200, { 'Content-Type': 'text/html' });
+//     res.end('<h1>Hello world</h1>');
+// });
 const io = require('socket.io')(http, {
     cors: { origin: "*" }
 });
@@ -8,7 +11,7 @@ const io = require('socket.io')(http, {
 io.on('connection', (socket) => {
     console.log('a user connected');
 
-    socket.on('message', (message) =>     {
+    socket.on('message', (message) => {
         console.log(message);
         io.emit('message', `${socket.id.substr(0,2)} said ${message}` );   
     });
